@@ -1,0 +1,7 @@
+[
+  { "name": "NFT 0", "traits": ["a", "b", "c"], "image": "ipfs://test" },
+  { "name": "NFT 1", "traits": ["d", "e", "f"], "image": "ipfs://test" },
+  { "name": "NFT 2", "traits": ["g", "h", "i"], "image": "ipfs://test" },
+  { "name": "NFT 3", "traits": ["j", "k", "l"], "image": "ipfs://test" },
+  { "name": "NFT 4", "traits": ["m", "n", "o"], "image": "ipfs://test" }
+]
