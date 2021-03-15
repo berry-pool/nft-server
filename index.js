@@ -16,6 +16,8 @@ const idQueue = JSON.parse(fs.readFileSync("idQueue.json").toString());
 const idReserved = JSON.parse(fs.readFileSync("idReserved.json").toString());
 const idDone = JSON.parse(fs.readFileSync("idDone.json").toString());
 
+const ipAddresses = {};
+
 const checkedWrongUTxO = {};
 
 //addr_test1qrzq6cs7334u2c38qz8flc89yranpe7z93fr84huztknly30m4ay2h2xqe7kzkx3706e0dl2dukrsrfhq848p2qw2w8snk7j0y
@@ -32,13 +34,21 @@ setInterval(() => {
       idQueue.push(chosen);
       const txHash = await initateMint(utxo, chosen.id);
       console.log("TxHash: " + txHash);
+
       const index = idAvailable.indexOf(chosen);
       const indexQueue = idQueue.indexOf(chosen);
+      const indexReserved = idReserved.indexOf(
+        idReserved.find(
+          (res) => JSON.stringify(res.item) == JSON.stringify(chosen)
+        )
+      );
       if (index !== -1 && indexQueue !== -1 && txHash) {
         checkedWrongUTxO[JSON.stringify(utxo)] = true;
         idAvailable.splice(index, 1);
         idQueue.splice(indexQueue, 1);
-        idDone.push(chosen);
+        delete ipAddresses[idReserved[indexReserved].ip];
+        idReserved.splice(indexReserved, 1);
+        idDone.push({ item: chosen, txHash });
       }
     }
   });
@@ -76,7 +86,10 @@ setInterval(() => {
   for (let i = idReserved.length - 1; 0 <= i; i--) {
     const res = idReserved[i];
     const min20 = 1200 * 1000;
-    if (Date.now() - res.time > min20) idReserved.splice(i, 1);
+    if (Date.now() - res.time > min20) {
+      delete ipAddresses[res.ip];
+      idReserved.splice(i, 1);
+    }
   }
 }, 3000);
 
@@ -84,12 +97,29 @@ app.get("/reserveId", (req, res) => {
   for (avail of idAvailable)
     if (
       idQueue.every((q) => q.price != avail.price) &&
-      idReserved.every((r) => r.item.price != avail.price)
+      idReserved.every((r) => r.item.price != avail.price) &&
+      !ipAddresses[req.ip]
     ) {
-      idReserved.push({ time: Date.now(), item: avail });
+      idReserved.push({ time: Date.now(), item: avail, ip: req.ip });
+      ipAddresses[req.ip] = avail.price;
+      console.log("New Reservation with price: " + avail.price);
       return res.json({ price: avail.price });
     }
+  if (ipAddresses[req.ip]) return res.json({ price: ipAddresses[req.ip] });
   return res.json({ msg: "no free Ids found" });
+});
+
+app.get("/result", (req, res) => {
+  const result = idDone.find((done) => done.item.price == req.query.price);
+  if (result) {
+    return res.json({
+      id: result.item.id,
+      txHash: result.txHash,
+    });
+  }
+  return res.json({
+    msg: "Not a valid price or transaction not submitted",
+  });
 });
 
 app.listen(port, () => {
