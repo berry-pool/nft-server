@@ -29,9 +29,16 @@ const signTransactionRefund = (wallet, tx) => {
 
 exports.initateMint = async (_utxo, id) => {
   const wallet = cardanocliJs.wallet("Test");
+
   const mintScript = {
-    keyHash: cardanocliJs.addressKeyHash(wallet.name),
-    type: "sig",
+    type: "all",
+    scripts: [
+      { slot: 21560175 + 432000, type: "before" },
+      {
+        keyHash: cardanocliJs.addressKeyHash(wallet.name),
+        type: "sig",
+      },
+    ],
   };
 
   const utxo = JSON.parse(JSON.stringify(_utxo));
@@ -46,7 +53,8 @@ exports.initateMint = async (_utxo, id) => {
     .then((res) => res.inputs[0].address);
 
   const policy = cardanocliJs.transactionPolicyid(mintScript);
-  const SPACEBUD = policy + `.nft${id}`;
+  const name = `SpaceBud${id}`;
+  const SPACEBUD = policy + `.${name}`;
   const balance = utxo.amount;
   balance.lovelace -= cardanocliJs.toLovelace(1.5);
   const [ziegAmount, alesAmount] = [
@@ -77,7 +85,7 @@ exports.initateMint = async (_utxo, id) => {
       },
     ],
     mint: [{ action: "mint", amount: 1, token: SPACEBUD }],
-    metadata: { 721: { [policy]: metadata[id] } },
+    metadata: { 721: { [policy]: { [name]: metadata[id] } } },
     witnessCount: 2,
   };
 

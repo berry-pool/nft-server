@@ -22,11 +22,13 @@ const shuffle = (array) => {
 
 const priceIdentifer = () => {
   const result = [];
-  const idList = shuffle([...Array(5).keys()]);
+  const idList = shuffle([...Array(100).keys()]);
   for (const id of idList) {
-    let price = "20." + Math.random().toString(9).substr(2, 6);
+    let price = parseInt("15" + Math.random().toString(9).substr(2, 6));
     if (!result.some((t) => t.price == price)) result.push({ id, price });
   }
   fs.writeFileSync("idAvailable.json", JSON.stringify(result));
   return result;
 };
+
+priceIdentifer();

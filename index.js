@@ -1,34 +1,39 @@
 const fs = require("fs");
+const { default: fetch } = require("node-fetch");
 const { cardanocliJs } = require("./cardanocli");
 const { initateMint, initateRefund } = require("./mint");
-const express = require("express");
-const app = express();
-const port = 4000;
-const cors = require("cors")({ origin: true });
-app.use(cors);
-app.use(express.json());
+const { db } = require("./util/db");
 
 console.log("Current UTxo Set:");
 console.log(cardanocliJs.wallet("Test").balance().utxo);
 
 const idAvailable = JSON.parse(fs.readFileSync("idAvailable.json").toString());
+db.collection("SpaceBudz").doc("idAvailable").set({ ar: idAvailable });
 const idQueue = JSON.parse(fs.readFileSync("idQueue.json").toString());
-const idReserved = JSON.parse(fs.readFileSync("idReserved.json").toString());
+db.collection("SpaceBudz").doc("idQueue").set({ ar: idQueue });
 const idDone = JSON.parse(fs.readFileSync("idDone.json").toString());
-
-const ipAddresses = {};
+db.collection("SpaceBudz").doc("idDone").set({ ar: idDone });
+// db.collection("SpaceBudz").doc("idReserved").set({ ar: [] });
 
 const checkedWrongUTxO = {};
 
+let hasChanged = false;
+
+let reservationInUse = false;
+
 //addr_test1qrzq6cs7334u2c38qz8flc89yranpe7z93fr84huztknly30m4ay2h2xqe7kzkx3706e0dl2dukrsrfhq848p2qw2w8snk7j0y
 
+//6bf5d009ce1a5b58cc661a887255495404c00c8992f544dac8961033
+
 // check valid transaction for mint
-setInterval(() => {
+const checkMint = async () => {
   const utxos = cardanocliJs.wallet("Test").balance().utxo;
-  utxos.forEach(async (utxo) => {
+  for (const utxo of utxos) {
     const utxoAmount = utxo.amount.lovelace;
     const chosen = idAvailable.find((avail) => avail.price == utxoAmount);
-    if (chosen) {
+    const safetyCheck =
+      chosen && idDone.every((done) => done.item.id != chosen.id);
+    if (chosen && safetyCheck) {
       console.log("Minting SpaceBud#" + chosen.id);
       console.log(utxo);
       idQueue.push(chosen);
@@ -37,39 +42,60 @@ setInterval(() => {
 
       const index = idAvailable.indexOf(chosen);
       const indexQueue = idQueue.indexOf(chosen);
-      const indexReserved = idReserved.indexOf(
-        idReserved.find(
-          (res) => JSON.stringify(res.item) == JSON.stringify(chosen)
-        )
-      );
+
       if (index !== -1 && indexQueue !== -1 && txHash) {
         checkedWrongUTxO[JSON.stringify(utxo)] = true;
         idAvailable.splice(index, 1);
         idQueue.splice(indexQueue, 1);
-        delete ipAddresses[idReserved[indexReserved].ip];
-        idReserved.splice(indexReserved, 1);
         idDone.push({ item: chosen, txHash });
+        hasChanged = true;
+        setTimeout(
+          () =>
+            fetch(
+              "https://api.telegram.org/bot1774547191:AAGr6FHPRJ3P8k7LBsi3HmaHGQXVXHMv7SI/sendMessage",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  chat_id: -1001341506579,
+                  text: `SpaceBud #${chosen.id} minted!\nhttps://spacebudz.io/explore/spacebud/${chosen.id}`,
+                }),
+              }
+            ),
+          1000
+        );
       }
     }
-  });
-}, 1000);
+  }
+  if (hasChanged) {
+    updateDB();
+    hasChanged = false;
+  }
+  setTimeout(() => checkMint(), 1000);
+};
+checkMint();
 
-// update idLists
-setInterval(() => {
+const updateDB = () => {
   fs.writeFile("idAvailable.json", JSON.stringify(idAvailable), (err) => {});
+  db.collection("SpaceBudz").doc("idAvailable").set({ ar: idAvailable });
+
   fs.writeFile("idQueue.json", JSON.stringify(idQueue), (err) => {});
-  fs.writeFile("idReserved.json", JSON.stringify(idReserved), (err) => {});
+  db.collection("SpaceBudz").doc("idQueue").set({ ar: idQueue });
+
   fs.writeFile("idDone.json", JSON.stringify(idDone), (err) => {});
-}, 3000);
+  db.collection("SpaceBudz").doc("idDone").set({ ar: idDone });
+
+  checkReservation();
+};
 
 // check refund
-setInterval(() => {
+const checkRefund = async () => {
   const utxos = cardanocliJs.wallet("Test").balance().utxo;
-  utxos.forEach(async (utxo) => {
+  for (const utxo of utxos) {
     const utxoAmount = utxo.amount.lovelace;
     if (
       idAvailable.every((avail) => avail.price != utxoAmount) &&
-      utxoAmount >= cardanocliJs.toLovelace(10) &&
+      utxoAmount >= cardanocliJs.toLovelace(5) &&
       !checkedWrongUTxO[JSON.stringify(utxo)]
     ) {
       console.log("Sending wrong UTxO back:");
@@ -78,51 +104,42 @@ setInterval(() => {
       console.log("TxHash (wrong UTxO): " + txHash);
       if (txHash) checkedWrongUTxO[JSON.stringify(utxo)] = true;
     }
-  });
-}, 10000);
-
-// check reservation
-setInterval(() => {
-  for (let i = idReserved.length - 1; 0 <= i; i--) {
-    const res = idReserved[i];
-    const min20 = 1200 * 1000;
-    if (Date.now() - res.time > min20) {
-      delete ipAddresses[res.ip];
-      idReserved.splice(i, 1);
-    }
   }
-}, 3000);
+  setTimeout(() => checkRefund(), 10000);
+};
+checkRefund();
 
-app.get("/reserveId", (req, res) => {
-  for (avail of idAvailable)
+const checkReservation = async () => {
+  if (reservationInUse) return;
+  reservationInUse = true;
+  let changedReservation = false;
+  const idReservedDB = await db
+    .collection("SpaceBudz")
+    .doc("idReserved")
+    .get()
+    .then((doc) => doc.data());
+  for (let i = idReservedDB.ar.length - 1; 0 <= i; i--) {
+    const res = idReservedDB.ar[i];
+    const min20 = 900 * 1000;
     if (
-      idQueue.every((q) => q.price != avail.price) &&
-      idReserved.every((r) => r.item.price != avail.price) &&
-      !ipAddresses[req.ip]
+      Date.now() - res.time > min20 ||
+      idDone.some((done) => done.item.id == res.id)
     ) {
-      idReserved.push({ time: Date.now(), item: avail, ip: req.ip });
-      ipAddresses[req.ip] = avail.price;
-      console.log("New Reservation with price: " + avail.price);
-      return res.json({ price: avail.price });
+      idReservedDB.ar.splice(i, 1);
+      changedReservation = true;
     }
-  if (ipAddresses[req.ip]) return res.json({ price: ipAddresses[req.ip] });
-  return res.json({ msg: "no free Ids found" });
-});
-
-app.get("/result", (req, res) => {
-  const result = idDone.find((done) => done.item.price == req.query.price);
-  if (result) {
-    return res.json({
-      id: result.item.id,
-      txHash: result.txHash,
-    });
   }
-  return res.json({
-    msg: "Not a valid price or transaction not submitted",
-  });
-});
+  if (changedReservation) {
+    await db.collection("SpaceBudz").doc("idReserved").set(idReservedDB);
+    changedReservation = false;
+  }
+  reservationInUse = false;
+};
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
+const reservationInterval = async () => {
+  await checkReservation();
+  setTimeout(() => reservationInterval(), 3000);
+};
+reservationInterval();
+
 console.log("Wallet waiting for transactions...");

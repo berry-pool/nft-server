@@ -1,7 +1,449 @@
-[
-  { "name": "NFT 0", "traits": ["a", "b", "c"], "image": "ipfs://test" },
-  { "name": "NFT 1", "traits": ["d", "e", "f"], "image": "ipfs://test" },
-  { "name": "NFT 2", "traits": ["g", "h", "i"], "image": "ipfs://test" },
-  { "name": "NFT 3", "traits": ["j", "k", "l"], "image": "ipfs://test" },
-  { "name": "NFT 4", "traits": ["m", "n", "o"], "image": "ipfs://test" }
-]
+{
+  "0": {
+    "name": "Lion",
+    "traits": ["Camo Suit", "Chestplate", "Belt", "Covered Helmet", "Flowers"],
+    "image": "ipfs"
+  },
+  "1": { "name": "Dog", "traits": ["Chestplate"], "image": "ipfs" },
+  "2": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "3": {
+    "name": "Cat",
+    "traits": ["Belt", "Ski Goggles", "Flowers"],
+    "image": "ipfs"
+  },
+  "4": {
+    "name": "Robot",
+    "traits": ["Belt", "Covered Helmet", "Watch", "Whoolly Boots", "Flowers"],
+    "image": "ipfs"
+  },
+  "5": {
+    "name": "Alien",
+    "traits": ["Lightsaber", "Watch", "Lamp Fish"],
+    "image": "ipfs"
+  },
+  "6": {
+    "name": "Cat",
+    "traits": ["Belt", "Covered Helmet", "Whoolly Boots", "Binoculars"],
+    "image": "ipfs"
+  },
+  "7": {
+    "name": "Dog",
+    "traits": ["Chestplate", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "8": { "name": "Parrot", "traits": [], "image": "ipfs" },
+  "9": { "name": "Bear", "traits": ["Amulet"], "image": "ipfs" },
+  "10": { "name": "Lion", "traits": ["Watch"], "image": "ipfs" },
+  "11": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Covered Helmet", "Harpoon"],
+    "image": "ipfs"
+  },
+  "12": {
+    "name": "Tiger",
+    "traits": ["Camo Suit", "Belt", "Snorkel"],
+    "image": "ipfs"
+  },
+  "13": { "name": "Frog", "traits": ["Watch"], "image": "ipfs" },
+  "14": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Belt", "Cardano"],
+    "image": "ipfs"
+  },
+  "15": { "name": "Ape", "traits": ["Belt", "Flag"], "image": "ipfs" },
+  "16": {
+    "name": "Lion",
+    "traits": ["Camo Suit", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "17": {
+    "name": "Tiger",
+    "traits": ["Camo Suit", "Belt", "Covered Helmet", "Cardano", "Axe"],
+    "image": "ipfs"
+  },
+  "18": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Belt", "Covered Helmet", "Flowers"],
+    "image": "ipfs"
+  },
+  "19": {
+    "name": "Alien",
+    "traits": ["Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "20": { "name": "Robot", "traits": ["Belt", "Snorkel"], "image": "ipfs" },
+  "21": {
+    "name": "Shark",
+    "traits": ["Camo Suit", "Chestplate", "Belt"],
+    "image": "ipfs"
+  },
+  "22": {
+    "name": "Parrot",
+    "traits": ["Chestplate", "Covered Helmet", "SPO"],
+    "image": "ipfs"
+  },
+  "23": {
+    "name": "Cat",
+    "traits": ["Umbrella", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "24": {
+    "name": "Bear",
+    "traits": ["Umbrella", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "25": {
+    "name": "Peculiar",
+    "traits": ["Camo Suit", "Belt", "Candle"],
+    "image": "ipfs"
+  },
+  "26": { "name": "Cat", "traits": ["Belt"], "image": "ipfs" },
+  "27": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Belt", "Covered Helmet", "Harpoon"],
+    "image": "ipfs"
+  },
+  "28": { "name": "Lion", "traits": ["Chestplate", "Belt"], "image": "ipfs" },
+  "29": {
+    "name": "Ape",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "30": {
+    "name": "Alien",
+    "traits": ["Covered Helmet", "Lamp Fish"],
+    "image": "ipfs"
+  },
+  "31": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Belt", "Whoolly Boots"],
+    "image": "ipfs"
+  },
+  "32": {
+    "name": "Bear",
+    "traits": [
+      "Camo Suit",
+      "Chestplate",
+      "Belt",
+      "Covered Helmet",
+      "Lamp Fish"
+    ],
+    "image": "ipfs"
+  },
+  "33": {
+    "name": "Cat",
+    "traits": ["Chestplate", "Covered Helmet", "Cardano", "Candle"],
+    "image": "ipfs"
+  },
+  "34": {
+    "name": "Tiger",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Binoculars"],
+    "image": "ipfs"
+  },
+  "35": {
+    "name": "Ape",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Eye Patch", "Flowers"],
+    "image": "ipfs"
+  },
+  "36": {
+    "name": "Alien",
+    "traits": ["Belt", "Whoolly Boots"],
+    "image": "ipfs"
+  },
+  "37": {
+    "name": "Dog",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "38": { "name": "Lion", "traits": ["Belt", "Hockey Stick"], "image": "ipfs" },
+  "39": {
+    "name": "Lion",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Covered Helmet", "Flag"],
+    "image": "ipfs"
+  },
+  "40": {
+    "name": "Tiger",
+    "traits": [
+      "Special Background",
+      "Belt",
+      "Covered Helmet",
+      "Revolver",
+      "Flowers"
+    ],
+    "image": "ipfs"
+  },
+  "41": { "name": "Alien", "traits": ["Chestplate"], "image": "ipfs" },
+  "42": {
+    "name": "Ape",
+    "traits": ["Chestplate", "Flag", "Watch"],
+    "image": "ipfs"
+  },
+  "43": {
+    "name": "Wolf",
+    "traits": ["Camo Suit", "Chestplate", "Belt", "Covered Helmet", "Watch"],
+    "image": "ipfs"
+  },
+  "44": {
+    "name": "Bear",
+    "traits": ["Camo Suit", "Belt", "Flag"],
+    "image": "ipfs"
+  },
+  "45": {
+    "name": "Bear",
+    "traits": ["Camo Suit", "Chestplate", "Belt", "Flowers"],
+    "image": "ipfs"
+  },
+  "46": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "47": {
+    "name": "Ape",
+    "traits": ["Star Suit", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "48": { "name": "Dog", "traits": ["Chestplate", "VR"], "image": "ipfs" },
+  "49": {
+    "name": "Parrot",
+    "traits": ["Special Background", "Flag", "Cardano"],
+    "image": "ipfs"
+  },
+  "50": {
+    "name": "Cat",
+    "traits": ["Chestplate", "Covered Helmet", "Binoculars"],
+    "image": "ipfs"
+  },
+  "51": {
+    "name": "Cat",
+    "traits": ["Camo Suit", "Belt", "Covered Helmet", "Whoolly Boots"],
+    "image": "ipfs"
+  },
+  "52": {
+    "name": "Dog",
+    "traits": ["Star Suit", "Belt", "Amulet"],
+    "image": "ipfs"
+  },
+  "53": { "name": "Cat", "traits": [], "image": "ipfs" },
+  "54": {
+    "name": "Cat",
+    "traits": ["Belt", "Covered Helmet", "Ski Goggles"],
+    "image": "ipfs"
+  },
+  "55": {
+    "name": "Alien",
+    "traits": ["Chestplate", "Candle"],
+    "image": "ipfs"
+  },
+  "56": { "name": "Ape", "traits": ["Eye Patch"], "image": "ipfs" },
+  "57": {
+    "name": "Ape",
+    "traits": ["Star Suit", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "58": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Covered Helmet", "Flag", "Revolver", "Watch"],
+    "image": "ipfs"
+  },
+  "59": {
+    "name": "Alien",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Hockey Stick"],
+    "image": "ipfs"
+  },
+  "60": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Covered Helmet", "Flowers"],
+    "image": "ipfs"
+  },
+  "61": {
+    "name": "Cat",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Jo-Jo"],
+    "image": "ipfs"
+  },
+  "62": {
+    "name": "Peculiar",
+    "traits": ["Chestplate", "Snorkel", "Jo-Jo"],
+    "image": "ipfs"
+  },
+  "63": {
+    "name": "Robot",
+    "traits": ["Chestplate", "Covered Helmet", "Eye Patch"],
+    "image": "ipfs"
+  },
+  "64": {
+    "name": "Dog",
+    "traits": [
+      "Special Background",
+      "Chestplate",
+      "Belt",
+      "Covered Helmet",
+      "Sun Glasses",
+      "Lightsaber"
+    ],
+    "image": "ipfs"
+  },
+  "65": { "name": "Parrot", "traits": ["Blaster"], "image": "ipfs" },
+  "66": {
+    "name": "Robot",
+    "traits": ["Star Suit", "Chestplate", "Belt"],
+    "image": "ipfs"
+  },
+  "67": {
+    "name": "Fish",
+    "traits": ["Whoolly Boots", "Bazooka"],
+    "image": "ipfs"
+  },
+  "68": {
+    "name": "Frog",
+    "traits": ["Chestplate", "Amulet", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "69": {
+    "name": "Shark",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Lightsaber"],
+    "image": "ipfs"
+  },
+  "70": {
+    "name": "Robot",
+    "traits": [
+      "Special Background",
+      "Star Suit",
+      "Chestplate",
+      "Belt",
+      "Harpoon"
+    ],
+    "image": "ipfs"
+  },
+  "71": { "name": "Peculiar", "traits": ["Anchor"], "image": "ipfs" },
+  "72": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Flag", "Watch", "Candle"],
+    "image": "ipfs"
+  },
+  "73": {
+    "name": "Cat",
+    "traits": ["Chestplate", "Belt", "Flowers"],
+    "image": "ipfs"
+  },
+  "74": { "name": "Alien", "traits": ["Star Suit", "Belt"], "image": "ipfs" },
+  "75": {
+    "name": "Bear",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "76": { "name": "Alien", "traits": ["Covered Helmet"], "image": "ipfs" },
+  "77": {
+    "name": "Tiger",
+    "traits": [
+      "Special Background",
+      "Chestplate",
+      "Whoolly Boots",
+      "Amulet",
+      "Hockey Stick"
+    ],
+    "image": "ipfs"
+  },
+  "78": {
+    "name": "Alien",
+    "traits": ["Chestplate", "Belt", "Covered Helmet", "Watch", "Lightsaber"],
+    "image": "ipfs"
+  },
+  "79": {
+    "name": "Bear",
+    "traits": ["Star Suit", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "80": {
+    "name": "Lion",
+    "traits": ["Belt", "Covered Helmet", "Axe"],
+    "image": "ipfs"
+  },
+  "81": {
+    "name": "Peculiar",
+    "traits": ["Chestplate", "Belt", "Covered Helmet", "Amulet"],
+    "image": "ipfs"
+  },
+  "82": { "name": "Frog", "traits": ["Chestplate"], "image": "ipfs" },
+  "83": {
+    "name": "Ape",
+    "traits": ["Camo Suit", "Chestplate", "Belt"],
+    "image": "ipfs"
+  },
+  "84": {
+    "name": "Robot",
+    "traits": ["Camo Suit", "Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "85": {
+    "name": "Cat",
+    "traits": ["Camo Suit", "Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "86": {
+    "name": "Alien",
+    "traits": ["Belt", "Lightsaber", "Whoolly Boots", "Blaster"],
+    "image": "ipfs"
+  },
+  "87": {
+    "name": "Lion",
+    "traits": ["Chestplate", "Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "88": {
+    "name": "Robot",
+    "traits": ["Star Suit", "Belt", "Covered Helmet", "Eye Patch"],
+    "image": "ipfs"
+  },
+  "89": {
+    "name": "Ape",
+    "traits": ["Star Suit", "Belt", "Covered Helmet", "Sun Glasses"],
+    "image": "ipfs"
+  },
+  "90": {
+    "name": "Shark",
+    "traits": ["Special Background", "Chestplate", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "91": {
+    "name": "Dog",
+    "traits": ["Camo Suit", "Belt", "Covered Helmet", "Cardano"],
+    "image": "ipfs"
+  },
+  "92": {
+    "name": "Frog",
+    "traits": ["Belt", "Watch", "Whoolly Boots", "Baguette"],
+    "image": "ipfs"
+  },
+  "93": {
+    "name": "Dog",
+    "traits": ["Star Suit", "Chestplate", "Belt", "Lightsaber"],
+    "image": "ipfs"
+  },
+  "94": {
+    "name": "Dog",
+    "traits": ["Belt", "Covered Helmet", "Arc"],
+    "image": "ipfs"
+  },
+  "95": {
+    "name": "Alien",
+    "traits": ["Belt", "Covered Helmet"],
+    "image": "ipfs"
+  },
+  "96": { "name": "Fish", "traits": ["Chestplate", "Belt"], "image": "ipfs" },
+  "97": {
+    "name": "Bear",
+    "traits": ["Chestplate", "Belt", "Covered Helmet", "Snorkel", "Watch"],
+    "image": "ipfs"
+  },
+  "98": { "name": "Lion", "traits": ["Chestplate", "Belt"], "image": "ipfs" },
+  "99": {
+    "name": "Robot",
+    "traits": ["Belt", "Covered Helmet", "Hockey Stick"],
+    "image": "ipfs"
+  }
+}
