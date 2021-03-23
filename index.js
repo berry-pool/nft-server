@@ -70,6 +70,7 @@ const checkMint = async () => {
   if (hasChanged) {
     updateDB();
     hasChanged = false;
+    console.log("Updated Id lists");
   }
   setTimeout(() => checkMint(), 1000);
 };

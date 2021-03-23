@@ -33,7 +33,7 @@ exports.initateMint = async (_utxo, id) => {
   const mintScript = {
     type: "all",
     scripts: [
-      { slot: 21560175 + 432000, type: "before" },
+      { slot: 21560175 + 632000, type: "before" },
       {
         keyHash: cardanocliJs.addressKeyHash(wallet.name),
         type: "sig",
@@ -67,12 +67,12 @@ exports.initateMint = async (_utxo, id) => {
     txOut: [
       {
         address:
-          "addr_test1qrg7hftktm7dpuxemg9t03ped9rqt2vmw9cut5uvcze404v05rh7yvtrjhtyt78taxezca6m7yg0k7zvqus803d6kn0sh0j9xp",
+          "addr_test1qzuyhmjlv2qcg5rrk9hxp9hen595m7h8zs4h5yfz743k86gjx0wny5qwycfv0qp94vml3dqp3590v4f4xv2xym02eypqjc2430",
         amount: { lovelace: alesAmount },
       },
       {
         address:
-          "addr_test1qrg7hftktm7dpuxemg9t03ped9rqt2vmw9cut5uvcze404v05rh7yvtrjhtyt78taxezca6m7yg0k7zvqus803d6kn0sh0j9xp",
+          "addr_test1qrez968pdxa5p55jpq4apn7uxv0msdeq8fa8x5su54s9k4gjx0wny5qwycfv0qp94vml3dqp3590v4f4xv2xym02eypqwleec8",
         amount: { lovelace: ziegAmount },
       },
       {
